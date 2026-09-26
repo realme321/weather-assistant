@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Weather Assistant</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      .chat-box {
+        width: 80%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .message {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      .user {
+        background-color: #d1e7dd;
+        text-align: right;
+      }
+      .ai {
+        background-color: #f8d7da;
+        text-align: left;
+      }
+      .input-form {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .input-form input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .input-form button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+      }
+      .input-form button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather Assistant</h1>
+    <p>Welcome to the Weather Assistant!</p>
+    <div class="chat-box">
+      {% if messages %} {% for msg in messages %} {% if msg.role == 'user' %}
+      <div class="message user">{{ msg.content }}</div>
+      {% elif msg.role == 'assistant' %}
+      <div class="message ai">{{ msg.content }}</div>
+      {% endif %} {% endfor %} {%else%}
+      <p style="color: #999; text-align: center">Ask me</p>
+      {% endif %}
+    </div>
+    <form method="post" action="/send" class="input-form" id="chat-form">
+      <input
+        type="text"
+        name="message"
+        placeholder="Type your message here..."
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+    <a href="/clear">
+      <button type="button" class="clear-button">Clear Chat</button>
+    </a>
+  </body>
+</html>
